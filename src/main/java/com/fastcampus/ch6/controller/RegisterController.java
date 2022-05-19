@@ -18,6 +18,7 @@ public class RegisterController {
     @PostMapping("/add")
     public String save() {
         return "registerInfo";
+
     }
 
 }
