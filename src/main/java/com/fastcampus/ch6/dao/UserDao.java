@@ -49,4 +49,5 @@ public class UserDao {
         return session.delete(namespace+"deleteAll");
     }
 
+
 }
