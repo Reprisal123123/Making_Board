@@ -5,7 +5,7 @@
 <mapper namespace="com.fastcampus.ch6.dao.UserMapper">
     <insert id="insert" parameterType="UserDto">
         INSERT INTO user_info (id, pwd, name, email, birth, sns)
-        VALUES (#{id}, #{pwd}, #{name}, #{birth}, #{sns})
+        VALUES (#{id}, #{pwd}, #{name}, #{email}, #{birth}, #{sns})
     </insert>
 
     <select id="select" parameterType="String" resultType="UserDto">

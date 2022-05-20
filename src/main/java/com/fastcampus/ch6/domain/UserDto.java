@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.Objects;
 
 public class UserDto {
-    private String id;
-    private String pwd;
-    private String name;
-    private String email;
-    private Date birth;
-    private String sns;
-    private Date reg_date;
+    private String id; // id
+    private String pwd; // 비밀번호
+    private String name; // 이름
+    private String email; // 이메일
+    private Date birth; // 생일
+    private String sns; // sns
+    private Date reg_date; // 가입일
 
     public UserDto() {}
     public UserDto(String id, String pwd, String name, String email, Date birth, String sns) {

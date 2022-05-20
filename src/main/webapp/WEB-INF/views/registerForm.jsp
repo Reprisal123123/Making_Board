@@ -92,9 +92,9 @@
     <label for="">비밀번호</label>
     <input class="input-field" type="text" name="pwd" value="<c:out value='${userDto.pwd}'/>" placeholder="8~12자리의 영대소문자와 숫자 조합">
     <label for="">이름</label>
-    <input class="input-field" type="text" name="name" value="<c:out value='${userDto.name}'/> "placeholder="홍길동">
+    <input class="input-field" type="text" name="name" value="<c:out value='${userDto.name}'/>" placeholder="홍길동">
     <label for="">이메일</label>
-    <input class="input-field" type="text" name="email" value="<c:out value='${userDto.email}'/> "placeholder="example@fastcampus.co.kr">
+    <input class="input-field" type="text" name="email" value="<c:out value='${userDto.email}'/>" placeholder="example@fastcampus.co.kr">
     <label for="">생일</label>
     <input class="input-field" type="text" name="birth" placeholder="2020-12-31">
     <div class="sns-chk">
@@ -134,7 +134,7 @@
                 return;
             } else {
                 if(id.length <= 7 || id.length >= 13) {
-                    alert("id의 길이는 8~12자리 이어야 합니다.")
+                    alert("id의 길이는 8~12자리여야 합니다.")
                     $("input[name=id]").focus()
                     return;
                 }
@@ -142,7 +142,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/ch4/idcheck',
+                url: '/ch6/idcheck',
                 headers: {"content-type": "application/json"},
                 data: id,
                 success: function (result) {

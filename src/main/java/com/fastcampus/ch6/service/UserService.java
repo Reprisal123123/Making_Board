@@ -16,10 +16,10 @@ public class UserService {
         String pwd = userDto.getPwd();
 
         return userDao.insert(userDto);
-    }
+    } // 아이디 등록
 
     public UserDto select(String id) throws Exception {
         return userDao.select(id);
-    }
+    } // 아이디 선택
 
 }

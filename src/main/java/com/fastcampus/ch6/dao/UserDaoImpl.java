@@ -13,34 +13,34 @@ import java.util.Map;
 public class UserDaoImpl implements UserDao {
 
     @Autowired
-    SqlSession session;
+    SqlSession session; // Sql 세션 연결
 
     private String namespace = "com.fastcampus.ch6.dao.UserMapper.";
 
     @Override
     public int insert(UserDto userDto) throws Exception {
         return session.insert(namespace+"insert", userDto);
-    }
+    } // 아이디 등록
 
     @Override
     public UserDto select(String id) throws Exception {
         return session.selectOne(namespace+"select", id);
-    }
+    } // 아이디 선택
 
     @Override
     public List<UserDto> selectAll() throws Exception {
         return session.selectList(namespace+"selectAll");
-    }
+    } // 모든 아이디 목록
 
     @Override
     public int count() throws Exception {
         return session.selectOne(namespace+"count");
-    }
+    } // 모든 아이디 카운트
 
     @Override
     public int update(UserDto userDto) throws Exception {
         return session.update(namespace+"update", userDto);
-    }
+    } // 아이디 업데이트
 
     @Override
     public int delete(String id, String pwd) throws Exception {
@@ -48,11 +48,11 @@ public class UserDaoImpl implements UserDao {
         map.put("id", id);
         map.put("pwd", pwd);
         return session.delete(namespace+"delete", map);
-    }
+    } // 아이디 삭제
 
     @Override
     public int deleteAll() throws Exception {
         return session.delete(namespace+"deleteAll");
-    }
+    } // 아이디 전부 삭제
 
 }
