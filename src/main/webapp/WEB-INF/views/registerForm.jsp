@@ -81,6 +81,10 @@
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
+<script>
+    let msg = "${msg}";
+    if(msg=="REG_ERR") alert("회원가입에 실패하였습니다. 다시 시도해 주세요.");
+</script>
 <!-- form action="<c:url value="/register/add"/>" method="POST" onsubmit="return formCheck(this)"-->
 <form:form modelAttribute="userDto">
     <div class="title">Register</div>
@@ -122,7 +126,6 @@
 
 
     $(document).ready(function() {
-
 
         $("#idCheck").click(function(){
             var id = $("input[name=id]").val();

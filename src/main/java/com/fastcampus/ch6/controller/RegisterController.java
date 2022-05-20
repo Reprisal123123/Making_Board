@@ -46,13 +46,14 @@ public class RegisterController {
                 userService.register(userDto);
                 return "registerInfo";
             }
+            throw new Exception("Register failed");
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("userDto", userDto);
+            m.addAttribute("msg", "REG_ERR");
             return "registerForm";
         }
 
-        return "registerForm";
     }
 
 }
