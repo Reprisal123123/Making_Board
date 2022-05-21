@@ -55,4 +55,12 @@ public class UserDaoImpl implements UserDao {
         return session.delete(namespace+"deleteAll");
     } // 아이디 전부 삭제
 
+    @Override
+    public UserDto loginCheck(String id, String pwd) throws Exception {
+        Map map = new HashMap();
+        map.put("id", id);
+        map.put("pwd", pwd);
+        return session.selectOne(namespace+"loginCheck", map);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.fastcampus.ch6.dao;
 import com.fastcampus.ch6.domain.UserDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
     int insert(UserDto userDto) throws Exception;
@@ -25,4 +26,6 @@ public interface UserDao {
     
     int deleteAll() throws Exception;
     // 아이디 전부 삭제
+
+    UserDto loginCheck(String id, String pwd) throws Exception;
 }

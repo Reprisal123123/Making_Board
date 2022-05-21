@@ -1,25 +1,13 @@
 package com.fastcampus.ch6.service;
 
-import com.fastcampus.ch6.dao.UserDao;
 import com.fastcampus.ch6.domain.UserDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
+public interface UserService {
+    int register(UserDto userDto) throws Exception // ¾ÆÀÌµğ µî·Ï
+    ;
 
-    @Autowired
-    UserDao userDao;
+    UserDto select(String id) throws Exception // ¾ÆÀÌµğ ¼±ÅÃ
+    ;
 
-    public int register(UserDto userDto) throws Exception {
-        String id = userDto.getId();
-        String pwd = userDto.getPwd();
-
-        return userDao.insert(userDto);
-    } // ì•„ì´ë”” ë“±ë¡
-
-    public UserDto select(String id) throws Exception {
-        return userDao.select(id);
-    } // ì•„ì´ë”” ì„ íƒ
-
+    UserDto loginCheck(String id, String pwd) throws Exception;
 }

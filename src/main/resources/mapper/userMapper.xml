@@ -19,6 +19,12 @@
         FROM user_info
     </select>
 
+    <select id="loginCheck" parameterType="map" resultType="UserDto">
+        SELECT id, pwd, name, email, birth, sns, reg_date
+        FROM user_info
+        WHERE id = #{id} and pwd = #{pwd}
+    </select>
+
     <select id="count" resultType="int">
         SELECT count(*) FROM user_info
     </select>
