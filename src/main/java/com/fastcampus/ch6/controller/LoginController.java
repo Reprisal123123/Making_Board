@@ -13,6 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("/login")
@@ -62,7 +63,8 @@ public class LoginController {
 
             }
 
-            throw new Exception("Login failed");
+            String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
+            return "redirect:/login/login?msg="+msg;
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/login/login";

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <!--typeAlias alias="BoardDto" type="com.fastcampus.ch6.domain.BoardDto"/-->
+        <typeAlias alias="BoardDto" type="com.fastcampus.ch6.domain.BoardDto"/>
         <!--typeAlias alias="SearchCondition" type="com.fastcampus.ch6.domain.SearchCondition"/-->
         <!--typeAlias alias="CommentDto" type="com.fastcampus.ch6.domain.CommentDto"/-->
         <typeAlias alias="UserDto" type="com.fastcampus.ch6.domain.UserDto"/>
