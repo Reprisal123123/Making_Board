@@ -1,5 +1,7 @@
 package com.fastcampus.ch6.dao;
 
+import com.fastcampus.ch6.domain.BoardDto;
+import com.fastcampus.ch6.domain.SearchCondition;
 import com.fastcampus.ch6.domain.UserDto;
 
 import java.util.List;
@@ -28,4 +30,5 @@ public interface UserDao {
     // 아이디 전부 삭제
 
     UserDto loginCheck(String id, String pwd) throws Exception;
+
 }

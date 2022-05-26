@@ -2,6 +2,7 @@ package com.fastcampus.ch6.controller;
 
 import com.fastcampus.ch6.domain.BoardDto;
 import com.fastcampus.ch6.domain.PageHandler;
+import com.fastcampus.ch6.domain.SearchCondition;
 import com.fastcampus.ch6.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,32 +28,37 @@ public class BoardController {
     BoardService boardService;
 
     @GetMapping("/list")
-    public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String list(SearchCondition sc, Model m, HttpServletRequest request) {
         // 세션을 통해 로그인 여부 확인
         // 로그인 되어있지 않으면 toURL에 주소를 담아 전달
         if(!loginCheck(request))
             return "redirect:/login/login?toURL="+request.getRequestURL();
 
         // page와 pageSize가 null이면 기본값을 설정해준다
-        if(page==null) page = 1;
-        if(pageSize==null) pageSize = 10;
+//        if(page==null) page = 1;
+//        if(pageSize==null) pageSize = 10;
 
         try {
-            int totalCnt = boardService.getCount(); // 총 게시물 숫자 얻기
-            PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+            int totalCnt = boardService.getSearchResultCnt(sc); // 총 게시물 숫자 얻기
+            PageHandler pageHandler = new PageHandler(totalCnt, sc);
             // 페이지 핸들러 생성
 
             // offset과 pageSize를 map에 저장
             Map map = new HashMap();
-            map.put("offset", (page-1) * pageSize);
-            map.put("pageSize", pageSize);
+            map.put("offset", (sc.getPage()-1) * sc.getPageSize());
+            map.put("pageSize", sc.getPageSize());
 
             // 조건에 맞는 게시물 리스트 얻어와서 모델에 list와 페이지 핸들러를 저장
-            List<BoardDto> list = boardService.getPage(map);
+            List<BoardDto> list = boardService.getSearchResultPage(sc);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
+
+            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
         } catch (Exception e) {
             e.printStackTrace();
+            m.addAttribute("msg", "LIST_ERR");
+            m.addAttribute("totalCnt", 0);
         }
 
         return "boardList";
@@ -96,6 +105,8 @@ public class BoardController {
 
         return "redirect:/board/list";
     }
+
+
 
     private boolean loginCheck(HttpServletRequest request) {
         HttpSession session = request.getSession();

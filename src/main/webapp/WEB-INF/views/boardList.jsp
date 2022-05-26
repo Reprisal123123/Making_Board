@@ -214,10 +214,10 @@
         <br>
         <div class="paging-container">
             <div class="paging">
-                <c:if test="${totalCnt==null || totalCnt==0}">
+                <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
                     <div> 게시물이 없습니다. </div>
                 </c:if>
-                <c:if test="${totalCnt!=null && totalCnt!=0}">
+                <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
                     <c:if test="${ph.showPrev}">
                         <a class="page" href="<c:url value="/board/list${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
                     </c:if>

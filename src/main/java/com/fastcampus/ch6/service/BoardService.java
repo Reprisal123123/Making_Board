@@ -2,6 +2,7 @@ package com.fastcampus.ch6.service;
 
 import com.fastcampus.ch6.dao.BoardDao;
 import com.fastcampus.ch6.domain.BoardDto;
+import com.fastcampus.ch6.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,13 @@ public class BoardService {
 
     public List<BoardDto> getPage(Map map) throws Exception {
         return boardDao.selectPage(map);
+    }
+
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return boardDao.searchResultCnt(sc);
+    }
+
+    public List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return boardDao.searchSelectPage(sc);
     }
 }
