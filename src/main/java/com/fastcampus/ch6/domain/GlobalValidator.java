@@ -18,14 +18,23 @@ public class GlobalValidator implements Validator {
         String id = userDto.getId(); // Dto 객체에서 id 얻어오기
         String pwd = userDto.getPwd(); // 비밀번호 얻어오기
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "required"); // 아이디가 비었을 때
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "required"); // 비밀번호가 비었을 때
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "required"); // 아이디가 비었을 때
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "required"); // 비밀번호가 비었을 때
+        if(id==null || id.equals("")) {
+            errors.rejectValue("id", "required.user.id");
+            return;
+        }
 
-        if(id==null || id.length() < 8 || id.length() > 12) {
+        if(id.length() < 8 || id.length() > 12) {
             errors.rejectValue("id", "invalidLength.id", new String[]{"8","12"}, null);
         } // 아이디 길이가 8~12가 아닐 때
 
-        if(id==null || pwd.length() < 8 || pwd.length() > 12) {
+        if(pwd==null || pwd.equals("")) {
+            errors.rejectValue("pwd", "required.user.pwd");
+            return;
+        }
+
+        if(pwd.length() < 8 || pwd.length() > 12) {
             errors.rejectValue("id", "invalidLength.pwd", new String[]{"8","12"}, null);
         } // 아이디 길이가 8~12가 아닐 때
     }

@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
     <style>
         * { box-sizing:border-box; }
+
         form {
             width:400px;
-            height:600px;
+
             display : flex;
             flex-direction: column;
             align-items:center;
@@ -25,55 +26,85 @@
             border: 1px solid rgb(89,117,196);
             border-radius: 10px;
         }
+
         .input-field {
             width: 300px;
-            height: 40px;
+            height: 30px;
             border : 1px solid rgb(89,117,196);
-            border-radius:5px;
+            border-radius:10px;
             padding: 0 10px;
             margin-bottom: 10px;
         }
-
         label {
             width:300px;
             height:30px;
             margin-top :4px;
         }
+
         button {
-            background-color: rgb(89,117,196);
-            color : white;
-            width:300px;
-            height:50px;
+            background-color: white;
+            color : rgb(89,117,196);
+            width:120px;
+            height:40px;
             font-size: 17px;
-            border : none;
+            border : 2px solid rgb(89,117,196);
             border-radius: 5px;
             margin : 20px 0 30px 0;
+
         }
+
+        button:hover {
+            background-color: rgb(89,117,196);
+            color: white;
+        }
+
         .title {
             font-size : 50px;
             margin: 40px 0 30px 0;
         }
+
         .msg {
             height: 30px;
             text-align:center;
             font-size:16px;
+            font-weight: bold;
             color:red;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
         }
-
         .sns-chk {
             margin-top : 5px;
         }
 
         #idCheck {
-            background-color: rgb(89,117,196);
-            color : white;
-            width:50px;
-            height:50px;
+            background-color: white;
+            color : rgb(89,117,196);
+            width:90px;
+            height:30px;
             font-size: 13px;
-            border : none;
+            border : 2px solid rgb(89,117,196);
             border-radius: 5px;
             margin : 5px 0 5px 0;
+        }
+
+        #idCheck:hover {
+            background-color: rgb(89,117,196);
+            color: white;
+        }
+
+        #pwdCheck {
+            background-color: white;
+            color : rgb(89,117,196);
+            width:110px;
+            height:30px;
+            font-size: 13px;
+            border : 2px solid rgb(89,117,196);
+            border-radius: 5px;
+            margin : 5px 0 5px 0;
+        }
+
+        #pwdCheck:hover {
+            background-color: rgb(89,117,196);
+            color: white;
         }
 
     </style>
@@ -92,9 +123,10 @@
     <div id="msg" class="msg"><form:errors path="pwd"/></div>
     <label for="">아이디</label>
     <input class="input-field" type="text" name="id" value="<c:out value='${userDto.id}'/>" placeholder="8~12자리의 영대소문자와 숫자 조합">
-    <button id="idCheck" type="button">id체크</button>
+    <button id="idCheck" type="button">아이디 체크</button>
     <label for="">비밀번호</label>
     <input class="input-field" type="text" name="pwd" value="<c:out value='${userDto.pwd}'/>" placeholder="8~12자리의 영대소문자와 숫자 조합">
+    <button id="pwdCheck" type="button">비밀번호 체크</button>
     <label for="">이름</label>
     <input class="input-field" type="text" name="name" value="<c:out value='${userDto.name}'/>" placeholder="홍길동">
     <label for="">이메일</label>
@@ -154,6 +186,41 @@
                         alert("사용 가능한 아이디 입니다.");
                     } else {
                         alert("중복되는 아이디 입니다.");
+                    }
+                },
+                error: function () {
+                    alert("error")
+                }
+            }); // $.ajax()
+        });
+
+        $("#pwdCheck").click(function(){
+            var pwd = $("input[name=pwd]").val();
+            var checkResult = null;
+
+            if(pwd.trim()=='') {
+                alert("pwd를 입력해주세요.")
+                $("input[name=pwd]").focus()
+                return;
+            } else {
+                if(pwd.length <= 7 || pwd.length >= 13) {
+                    alert("pwd의 길이는 8~12자리여야 합니다.")
+                    $("input[name=pwd]").focus()
+                    return;
+                }
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/ch6/pwdcheck',
+                headers: {"content-type": "application/json"},
+                data: pwd,
+                success: function (result) {
+                    checkResult = JSON.parse(result);
+                    if (checkResult == true) {
+                        alert("사용 가능한 비밀번호 입니다.");
+                    } else {
+                        alert("8~12자리의 비밀번호를 설정하세요");
                     }
                 },
                 error: function () {
