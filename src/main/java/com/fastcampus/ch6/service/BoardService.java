@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -40,4 +41,7 @@ public class BoardService {
         return boardDao.delete(bno, writer);
     } // ±€ ªË¡¶
 
+    public List<BoardDto> getPage(Map map) throws Exception {
+        return boardDao.selectPage(map);
+    }
 }

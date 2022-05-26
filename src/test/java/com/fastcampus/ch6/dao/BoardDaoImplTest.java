@@ -19,6 +19,13 @@ public class BoardDaoImplTest {
     private BoardDao boardDao;
 
     @Test
+    public void insert() throws Exception {
+        for(int i=0; i<20; i++) {
+            BoardDto boardDto = new BoardDto("title"+i, "123", "asdf");
+            boardDao.insert(boardDto);
+        }
+    }
+    @Test
     public void insertTest() throws Exception {
         boardDao.deleteAll();
         assertTrue(boardDao.count()==0);

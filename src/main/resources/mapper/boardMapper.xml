@@ -51,5 +51,11 @@
         DELETE FROM board
     </delete>
 
+    <select id="selectPage" parameterType="map" resultType="BoardDto">
+        <include refid="selectFromBoard"/>
+        ORDER BY reg_date DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
 
 </mapper>

@@ -33,18 +33,19 @@
       width: 300px;
       height: 40px;
       border : 1px solid rgb(89,117,196);
-      border-radius:5px;
+      border-radius: 10px;
       padding: 0 10px;
       margin-bottom: 10px;
     }
     button {
-      background-color: rgb(89,117,196);
-      color : white;
-      width:300px;
+      background-color: white;
+      color : rgb(89,117,196);
+      width:150px;
       height:50px;
       font-size: 17px;
-      border : none;
-      border-radius: 5px;
+      font-weight: bold;
+      border : 2px solid rgb(89,117,196);
+      border-radius: 10px;
       margin : 20px 0 30px 0;
     }
     #title {
@@ -55,9 +56,16 @@
       height: 30px;
       text-align:center;
       font-size:16px;
+      font-weight: bold;
       color:red;
       margin-bottom: 20px;
     }
+
+    button:hover {
+      background-color: rgb(89,117,196);
+      color: white;
+    }
+
   </style>
 </head>
 <body>
@@ -91,11 +99,11 @@
     function formCheck(frm) {
       let msg ='';
       if(frm.id.value.length==0) {
-        setMessage('id를 입력해주세요.', frm.id);
+        setMessage('아이디를 입력해주세요.', frm.id);
         return false;
       }
       if(frm.pwd.value.length==0) {
-        setMessage('password를 입력해주세요.', frm.pwd);
+        setMessage('비밀번호를 입력해주세요.', frm.pwd);
         return false;
       }
       return true;
