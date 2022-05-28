@@ -64,19 +64,76 @@ public class BoardController {
         return "boardList";
     }
 
+    @GetMapping("/write")
+    public String write(Model m) {
+        m.addAttribute("mode", "new");
+        return "board"; // 읽기와 쓰기에 사용, 쓰기에 사용할 때는 mode=new
+    }
+
+    @PostMapping("/write")
+    public String write(BoardDto boardDto, HttpSession session, RedirectAttributes rattr, Model m) {
+        String writer = (String)session.getAttribute("id");
+        boardDto.setWriter(writer);
+        try {
+            int rowCnt = boardService.write(boardDto);
+
+            if(rowCnt!=1)
+                throw new Exception("Write failed");
+
+            rattr.addFlashAttribute("msg", "WRT_OK");
+
+            return "redirect:/board/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("boardDto", boardDto);
+            m.addAttribute("msg", "WRT_ERR");
+            return "board";
+        }
+
+    }
+
     @GetMapping("/read")
-    public String read(Integer bno, Integer page, Integer pageSize, Model m) {
+    public String read(Integer bno, SearchCondition sc, RedirectAttributes rattr, Model m) {
         try {
             BoardDto boardDto = boardService.read(bno);
 
             m.addAttribute("boardDto", boardDto);
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
+            m.addAttribute("page", sc.getPage());
+            m.addAttribute("pageSize", sc.getPageSize());
+            m.addAttribute("searchCondition", sc);
         } catch (Exception e) {
             e.printStackTrace();
+            rattr.addFlashAttribute("msg", "READ_ERR");
+            return "redirect:/board/list"+sc.getQueryString();
         }
 
         return "board";
+    }
+
+    @PostMapping("/modify")
+    public String modify(BoardDto boardDto, SearchCondition sc, HttpSession session, Model m, RedirectAttributes rattr) {
+//        title bno content
+        String writer = (String)session.getAttribute("id");
+        boardDto.setWriter(writer);
+
+        try {
+            int rowCnt = boardService.modify(boardDto);
+            if(rowCnt != 1) {
+                throw new Exception("Modify failed");
+            }
+
+            rattr.addFlashAttribute("msg", "MOD_OK");
+            rattr.addAttribute("page", sc.getPage());
+            rattr.addAttribute("pageSize", sc.getPageSize());
+
+            return "redirect:/board/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("BoardDto", boardDto);
+            m.addAttribute("msg","MOD_ERR");
+            return "board";
+        }
+
     }
 
     @PostMapping("/remove")

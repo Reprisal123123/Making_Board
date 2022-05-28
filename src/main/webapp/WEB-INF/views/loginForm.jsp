@@ -4,8 +4,8 @@
 <%@ page import="java.net.URLDecoder"%>
 
 <c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
-<c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOutLink" value="${loginId=='' || loginId==null? '/login/login' : '/login/logout'}"/>
+<c:set var="loginOut" value="${loginId=='' || loginId==null? 'Login' : 'ID='+=loginId}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +66,10 @@
       color: white;
     }
 
+    #Loginid {
+      width: auto;
+    }
+
   </style>
 </head>
 <body>
@@ -74,7 +78,7 @@
     <li id="logo">fastcampus</li>
     <li><a href="<c:url value='/'/>">Home</a></li>
     <li><a href="<c:url value='/board/list'/>">Board</a></li>
-    <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
+    <li id="Loginid"><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
     <li><a href="<c:url value='/register/add'/>">Sign in</a></li>
     <li><a href=""><i class="fa fa-search"></i></a></li>
   </ul>
