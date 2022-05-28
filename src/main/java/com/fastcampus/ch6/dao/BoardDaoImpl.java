@@ -75,4 +75,13 @@ public class BoardDaoImpl implements BoardDao {
         return session.selectList(namespace+"searchSelectPage", sc);
     }
 
+    @Override
+    public int updateCommentCnt(Integer bno, int cnt) throws Exception {
+        Map map = new HashMap();
+        map.put("bno", bno);
+        map.put("cnt", cnt);
+
+        return session.update(namespace+"updateCommentCnt", map);
+    }
+
 }

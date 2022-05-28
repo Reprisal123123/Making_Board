@@ -1,56 +1,33 @@
 package com.fastcampus.ch6.service;
 
-import com.fastcampus.ch6.dao.BoardDao;
 import com.fastcampus.ch6.domain.BoardDto;
 import com.fastcampus.ch6.domain.SearchCondition;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class BoardService {
+public interface BoardService {
+    int write(BoardDto boardDto) throws Exception // 글 쓰기
+    ;
 
-    @Autowired
-    BoardDao boardDao;
+    BoardDto read(Integer bno) throws Exception // 글 읽기
+    ;
 
-    public int write(BoardDto boardDto) throws Exception {
-        return boardDao.insert(boardDto);
-    } // 글 쓰기
+    List<BoardDto> getList() throws Exception // 모든 글을 list로 다 가져오기
+    ;
 
-    public BoardDto read(Integer bno) throws Exception {
-        BoardDto boardDto = boardDao.select(bno);
-        boardDao.increaseViewCnt(bno);
+    int getCount() throws Exception // 등록된 글의 갯수
+    ;
 
-        return boardDto;
-    } // 글 읽기
+    int modify(BoardDto boardDto) throws Exception // 글 수정하기
+    ;
 
-    public List<BoardDto> getList() throws Exception {
-        return boardDao.selectAll();
-    } // 모든 글을 list로 다 가져오기
+    int remove(Integer bno, String writer) throws Exception // 글 삭제
+    ;
 
-    public int getCount() throws Exception {
-        return boardDao.count();
-    } // 등록된 글의 갯수
+    List<BoardDto> getPage(Map map) throws Exception;
 
-    public int modify(BoardDto boardDto) throws Exception {
-        return boardDao.update(boardDto);
-    } // 글 수정하기
+    int getSearchResultCnt(SearchCondition sc) throws Exception;
 
-    public int remove(Integer bno, String writer) throws Exception {
-        return boardDao.delete(bno, writer);
-    } // 글 삭제
-
-    public List<BoardDto> getPage(Map map) throws Exception {
-        return boardDao.selectPage(map);
-    }
-
-    public int getSearchResultCnt(SearchCondition sc) throws Exception {
-        return boardDao.searchResultCnt(sc);
-    }
-
-    public List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception {
-        return boardDao.searchSelectPage(sc);
-    }
+    List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception;
 }
