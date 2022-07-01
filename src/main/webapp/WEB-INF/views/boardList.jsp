@@ -149,9 +149,6 @@
             text-decoration: underline;
         }
 
-        #Loginid {
-            width: auto;
-        }
     </style>
 </head>
 <body>
@@ -160,7 +157,7 @@
         <li id="logo">fastcampus</li>
         <li><a href="<c:url value='/'/>">Home</a></li>
         <li><a href="<c:url value='/board/list'/>">Board</a></li>
-        <li id="Loginid"><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
+        <li id="loginid"><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
         <li><a href="<c:url value='/register/add'/>">Sign in</a></li>
         <li><a href=""><i class="fa fa-search"></i></a></li>
     </ul>

@@ -16,16 +16,16 @@ comment : <input type="text" name="comment"><br>
     <button id="wrtRepBtn" type="button">등록</button>
 </div>
 <script>
-    let bno = 1217;
+    let bno = 1338;
 
     let showList = function(bno) {
         $.ajax({
             type:'GET',       // 요청 메서드
-            url: '/ch4/comments?bno='+bno,  // 요청 URI
+            url: '/ch6/comments?bno='+bno,  // 요청 URI
             success : function(result){
                $('#commentList').html(toHtml(result)); // 서버로부터 응답이 도착하면 호출될 함수
             },
-            error   : function(){ alert("error") } // 에러가 발생했을 때, 호출될 함수
+            error   : function(){ alert("테스트 실패") } // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
     }
 

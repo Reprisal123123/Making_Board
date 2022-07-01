@@ -40,13 +40,11 @@ public class BoardController {
 
         try {
             int totalCnt = boardService.getSearchResultCnt(sc); // 총 게시물 숫자 얻기
+            m.addAttribute("totalCnt", totalCnt);
+
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
             // 페이지 핸들러 생성
 
-            // offset과 pageSize를 map에 저장
-            Map map = new HashMap();
-            map.put("offset", (sc.getPage()-1) * sc.getPageSize());
-            map.put("pageSize", sc.getPageSize());
 
             // 조건에 맞는 게시물 리스트 얻어와서 모델에 list와 페이지 핸들러를 저장
             List<BoardDto> list = boardService.getSearchResultPage(sc);
@@ -125,8 +123,11 @@ public class BoardController {
             rattr.addFlashAttribute("msg", "MOD_OK");
             rattr.addAttribute("page", sc.getPage());
             rattr.addAttribute("pageSize", sc.getPageSize());
+            rattr.addAttribute("option", sc.getOption());
+            rattr.addAttribute("keyword", sc.getKeyword());
+            rattr.addAttribute("bno", boardDto.getBno());
 
-            return "redirect:/board/list";
+            return "redirect:/board/read";
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("BoardDto", boardDto);

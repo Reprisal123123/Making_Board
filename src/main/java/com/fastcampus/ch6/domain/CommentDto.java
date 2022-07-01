@@ -6,28 +6,12 @@ import java.util.Objects;
 public class CommentDto {
     private Integer cno;
     private Integer bno;
-    private Integer pcno;
+    private Integer pcno; // 부모 댓글 번호
     private String comment;
     private String commenter;
     private Date reg_date;
     private Date up_date;
-
-    public CommentDto() {}
-
-    public CommentDto(Integer bno, Integer pcno, String comment, String commenter) {
-        this.bno = bno;
-        this.pcno = pcno;
-        this.comment = comment;
-        this.commenter = commenter;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CommentDto that = (CommentDto) o;
-        return Objects.equals(cno, that.cno) && Objects.equals(bno, that.bno) && Objects.equals(pcno, that.pcno) && Objects.equals(comment, that.comment) && Objects.equals(commenter, that.commenter);
-    }
+    private String repno = "";
 
     @Override
     public String toString() {
@@ -39,7 +23,35 @@ public class CommentDto {
                 ", commenter='" + commenter + '\'' +
                 ", reg_date=" + reg_date +
                 ", up_date=" + up_date +
+                ", repno='" + repno + '\'' +
                 '}';
+    }
+
+    public String getRepno() {
+        return repno;
+    }
+
+    public void setRepno(String repno) {
+        this.repno = repno;
+    }
+
+    public CommentDto() {}
+
+    public CommentDto(Integer bno, Integer pcno, String comment, String commenter) {
+        this.bno = bno;
+        this.pcno = pcno;
+        this.comment = comment;
+        this.commenter = commenter;
+    }
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CommentDto that = (CommentDto) o;
+        return Objects.equals(cno, that.cno) && Objects.equals(bno, that.bno) && Objects.equals(pcno, that.pcno) && Objects.equals(comment, that.comment) && Objects.equals(commenter, that.commenter);
     }
 
     @Override

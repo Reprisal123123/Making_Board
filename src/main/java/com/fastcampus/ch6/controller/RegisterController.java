@@ -28,7 +28,6 @@ public class RegisterController {
 
     @InitBinder
     public void convert(WebDataBinder binder) {
-        ConversionService conversionService = binder.getConversionService();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(df,false));
     }
@@ -40,9 +39,9 @@ public class RegisterController {
 
     @PostMapping("/add")
     public String save(@Valid UserDto userDto, BindingResult result, Model m) {
-
+        System.out.println("userDto = " + userDto);
         try {
-            if(!result.hasErrors() & userService.select(userDto.getId())==null) {
+            if(!result.hasErrors() && userService.select(userDto.getId())==null) {
                 userService.register(userDto);
                 return "registerInfo";
             }

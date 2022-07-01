@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <style>
         * { box-sizing:border-box; }
 
@@ -122,20 +122,20 @@
     <div id="msg" class="msg"><form:errors path="id"/></div>
     <div id="msg" class="msg"><form:errors path="pwd"/></div>
     <label for="">아이디</label>
-    <input class="input-field" type="text" name="id" value="<c:out value='${userDto.id}'/>" placeholder="8~12자리의 영대소문자와 숫자 조합">
+    <input class="input-field" type="text" name="id" value="<c:out value='${userDto.id}'/>" placeholder="8~12자리의 영대소문자와 숫자 조합" autofocus>
     <button id="idCheck" type="button">아이디 체크</button>
     <label for="">비밀번호</label>
-    <input class="input-field" type="text" name="pwd" value="<c:out value='${userDto.pwd}'/>" placeholder="8~12자리의 영대소문자와 숫자 조합">
+    <input class="input-field" type="password" name="pwd" value="<c:out value='${userDto.pwd}'/>" placeholder="8~12자리의 영대소문자와 숫자 조합">
     <button id="pwdCheck" type="button">비밀번호 체크</button>
     <label for="">이름</label>
     <input class="input-field" type="text" name="name" value="<c:out value='${userDto.name}'/>" placeholder="홍길동">
     <label for="">이메일</label>
-    <input class="input-field" type="text" name="email" value="<c:out value='${userDto.email}'/>" placeholder="example@fastcampus.co.kr">
+    <input class="input-field" type="email" name="email" value="<c:out value='${userDto.email}'/>" placeholder="example@fastcampus.co.kr">
     <label for="">생일</label>
-    <input class="input-field" type="text" name="birth" placeholder="2020-12-31">
+    <input class="input-field" type="date" name="birth">
     <div class="sns-chk">
         <label><input type="checkbox" name="sns" value="facebook"/>페이스북</label>
-        <label><input type="checkbox" name="sns" value="kakaotalk"/>카카오톡</label>
+        <label><input type="checkbox" name="sns" value="kakaotalk" checked/>카카오톡</label>
         <label><input type="checkbox" name="sns" value="instagram"/>인스타그램</label>
     </div>
     <button>회원 가입</button>
@@ -199,12 +199,12 @@
             var checkResult = null;
 
             if(pwd.trim()=='') {
-                alert("pwd를 입력해주세요.")
+                alert("비밀번호를 입력해주세요.")
                 $("input[name=pwd]").focus()
                 return;
             } else {
                 if(pwd.length <= 7 || pwd.length >= 13) {
-                    alert("pwd의 길이는 8~12자리여야 합니다.")
+                    alert("비밀번호의 길이는 8~12자리여야 합니다.")
                     $("input[name=pwd]").focus()
                     return;
                 }

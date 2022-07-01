@@ -4,21 +4,21 @@
 
 <mapper namespace="com.fastcampus.ch6.dao.commentMapper">
     <insert id="insert" parameterType="CommentDto">
-        INSERT INTO comment (bno, pcno, comment, commenter, reg_date, up_date)
-        VALUES (#{bno}, #{pcno}, #{comment}, #{commenter}, now(), now())
+        INSERT INTO comment (bno, pcno, comment, commenter, reg_date, up_date, repno)
+        VALUES (#{bno}, #{pcno}, #{comment}, #{commenter}, now(), now(), #{repno})
     </insert>
 
     <select id="select" parameterType="int" resultType="CommentDto">
-        SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
+        SELECT cno, bno, pcno, comment, commenter, reg_date, up_date, repno
         FROM comment
         WHERE cno = #{cno}
     </select>
 
     <select id="selectAll" parameterType="int" resultType="CommentDto">
-        SELECT cno, bno, pcno, comment, commenter, reg_date, update
+        SELECT cno, bno, ifnull(pcno, cno) as pcno, repno, concat(repno, lpad(cno,'5','0')), comment, commenter, reg_date, up_date
         FROM comment
         WHERE bno = #{bno}
-        ORDER BY reg_date ASC, cno ASC
+        ORDER BY concat(repno, lpad(cno,'5','0')) asc;
     </select>
 
     <select id="count" parameterType="int" resultType="int">

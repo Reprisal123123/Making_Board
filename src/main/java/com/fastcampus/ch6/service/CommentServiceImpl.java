@@ -22,6 +22,7 @@ public class CommentServiceImpl implements CommentService {
         this.commentDao = commentDao;
         this.boardDao = boardDao;
     } // 인스턴스 주입보다 생성자 주입을 권장함(컴파일 단계에서 오류를 알 수 있으므로 실수가 적어짐)
+    // 생성자가 하나일 때만 Autowired 사용 가능
 
     @Override
     @Transactional(rollbackFor = Exception.class)
